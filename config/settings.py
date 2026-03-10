@@ -1,6 +1,7 @@
 from decouple import config, Csv
 from pathlib import Path
 import dj_database_url
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -126,6 +127,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/var/data/media"
+os.makedirs(MEDIA_ROOT, exist_ok=True)
 
 # =========================
 # EMAIL
