@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block nav_class %}navbar-absolute{% endblock %}
+
+{% block content %}
+<section class="hero-video">
+    <video autoplay muted loop playsinline class="background-video">
+        <source src="{% static 'videos/hero.mp4' %}" type="video/mp4">
+    </video>
+
+    <div class="hero-content container">
+        <span class="hero-eyebrow">Pedro B Media</span>
+        <h1>Professional Video Production</h1>
+        <p>High quality videos for brands, businesses and creators.</p>
+        <div class="hero-actions">
+            <a href="/contact/" class="cta">Request a Service</a>
+            <a href="/portfolio/" class="cta cta-secondary">View Portfolio</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

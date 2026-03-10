@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedro Barbosa Media</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="{% block body_class %}{% endblock %}">
+
+    <header class="site-header">
+        <nav class="navbar {% block nav_class %}navbar-solid{% endblock %}">
+            <div class="nav-inner container">
+                <a href="/" class="brand">
+                    <img src="{% static 'images/logo.jpg' %}" alt="Pedro B Media Logo" class="brand-mark">
+                    <div class="brand-text">
+                        <span class="brand-title">Pedro Barbosa Media</span>
+                        <span class="brand-subtitle">Premium Video Production</span>
+                    </div>
+                    
+                </a>
+
+                <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/packages/">Packages</a></li>
+                    <li><a href="/projects/">Custom Projects</a></li>
+                    <li><a href="/portfolio/">Portfolio</a></li>
+                    <li><a href="/about/">About</a></li>
+                    <li><a href="/contact/" class="nav-cta">Contact</a></li>
+                    <li class="nav-social">
+        <a href="https://instagram.com/SEUINSTAGRAM" target="_blank">
+            <img src="{% static 'icons/instagram.svg' %}">
+        </a>
+    </li>
+
+    <li class="nav-social">
+        <a href="https://wa.me/5531999999999" target="_blank">
+            <img src="{% static 'icons/whatsapp.svg' %}">
+        </a>
+    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer footer-premium">
+
+        <div class="container footer-inner">
+            <div class="footer-brand">
+                <img src="{% static 'images/logo.jpg' %}" alt="Pedro B Media Logo">
+
+                <div>
+                    <h3>Pedro Barbosa Media</h3>
+                    <p>Premium visuals for brands, creators, and businesses.</p>
+                </div>
+            </div>
+                            <div class="footer-socials">
+
+    <a href="https://instagram.com/SEUINSTAGRAM" target="_blank">
+        <img src="{% static 'icons/instagram.svg' %}">
+    </a>
+
+    <a href="https://wa.me/5531999999999" target="_blank">
+        <img src="{% static 'icons/whatsapp.svg' %}">
+    </a>
+
+</div>
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/packages/">Packages</a>
+                <a href="/projects/">Custom Projects</a>
+                <a href="/portfolio/">Portfolio</a>
+                <a href="/about/">About</a>
+                <a href="/contact/">Contact</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Pedro Barbosa Media. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                menuToggle.classList.toggle('active');
+
+                const expanded = menuToggle.classList.contains('active');
+                menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Request a Service</h1>
+        <p>Tell us what you need and we will get back to you as soon as possible.</p>
+    </div>
+</section>
+
+<section class="contact-page-section">
+    <div class="container contact-grid">
+
+        <div class="contact-info-card">
+            <h2>Let’s work together</h2>
+            <p>
+                If you need content for your business, social media, event or personal brand,
+                send your request using the form.
+            </p>
+
+            <div class="contact-info-box">
+                <h3>What to include</h3>
+                <ul>
+                    <li>Your full name</li>
+                    <li>Your email</li>
+                    <li>The service you want</li>
+                    <li>Any project details or goals</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contact-form-card">
+            {% if success %}
+                <div class="success-message">
+                    Thank you! Your request has been sent successfully.
+                </div>
+            {% endif %}
+
+            <form method="POST" class="contact-form">
+                {% csrf_token %}
+
+                <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                {{ form.full_name }}
+
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+
+                <label for="{{ form.service.id_for_label }}">Service</label>
+                {{ form.service }}
+
+                <label for="{{ form.message.id_for_label }}">Message</label>
+                {{ form.message }}
+
+                <button type="submit">Send Request</button>
+            </form>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="page-header">
+    <div class="container">
+        <h1>Portfolio</h1>
+        <p>Take a look at recent projects and visual work created for clients and brands.</p>
+    </div>
+</section>
+
+<section class="portfolio-section">
+    <div class="container">
+
+        <div class="portfolio-block">
+            <div class="portfolio-block-head">
+                <h2 class="portfolio-subtitle">Videos</h2>
+                <p>Cinematic projects, branded content and promotional productions.</p>
+            </div>
+
+            <div class="portfolio-grid">
+                {% for video in videos %}
+                    <article class="portfolio-card">
+                        <img src="{{ video.thumbnail.url }}" alt="{{ video.title }}">
+                        <div class="portfolio-card-body">
+                            <h3>{{ video.title }}</h3>
+
+                            {% if video.description %}
+                                <p>{{ video.description }}</p>
+                            {% endif %}
+
+                            <a href="{{ video.video_url }}" target="_blank" rel="noopener noreferrer">
+                                Watch Video
+                            </a>
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="empty-state">
+                        <h3>No videos yet</h3>
+                        <p>Add video projects in the Django admin to display them here.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="portfolio-block portfolio-block-space">
+            <div class="portfolio-block-head">
+                <h2 class="portfolio-subtitle">Photos</h2>
+                <p>Selected stills, frames and visual moments from recent work.</p>
+            </div>
+
+            <div class="portfolio-grid portfolio-photo-grid">
+                {% for photo in photos %}
+                    <article class="portfolio-card portfolio-photo-card">
+                        <button
+                            type="button"
+                            class="portfolio-photo-trigger"
+                            data-image="{{ photo.image.url }}"
+                            data-title="{{ photo.title }}"
+                            data-description="{{ photo.description|default:'' }}"
+                        >
+                            <img src="{{ photo.image.url }}" alt="{{ photo.title }}">
+                        </button>
+
+                        <div class="portfolio-card-body">
+                            <h3>{{ photo.title }}</h3>
+
+                            {% if photo.description %}
+                                <p>{{ photo.description }}</p>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% empty %}
+                    <div class="empty-state">
+                        <h3>No photos yet</h3>
+                        <p>Add photo projects in the Django admin to display them here.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="portfolio-lightbox" id="portfolioLightbox" aria-hidden="true">
+    <div class="portfolio-lightbox-overlay"></div>
+
+    <div class="portfolio-lightbox-dialog" role="dialog" aria-modal="true" aria-label="Photo preview">
+        <button type="button" class="portfolio-lightbox-close" id="portfolioLightboxClose" aria-label="Close preview">
+            ×
+        </button>
+
+        <div class="portfolio-lightbox-content">
+            <img id="portfolioLightboxImage" src="" alt="">
+            <div class="portfolio-lightbox-info">
+                <h3 id="portfolioLightboxTitle"></h3>
+                <p id="portfolioLightboxDescription"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const photoTriggers = document.querySelectorAll('.portfolio-photo-trigger');
+    const lightbox = document.getElementById('portfolioLightbox');
+    const lightboxImage = document.getElementById('portfolioLightboxImage');
+    const lightboxTitle = document.getElementById('portfolioLightboxTitle');
+    const lightboxDescription = document.getElementById('portfolioLightboxDescription');
+    const lightboxClose = document.getElementById('portfolioLightboxClose');
+    const lightboxOverlay = document.querySelector('.portfolio-lightbox-overlay');
+
+    function openLightbox(image, title, description) {
+    lightboxImage.src = image;
+    lightboxImage.alt = title;
+    lightboxTitle.textContent = title || '';
+    lightboxDescription.textContent = description || '';
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    lightboxImage.src = '';
+}
+    photoTriggers.forEach((trigger) => {
+        trigger.addEventListener('click', () => {
+            openLightbox(
+                trigger.dataset.image,
+                trigger.dataset.title,
+                trigger.dataset.description
+            );
+        });
+    });
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', closeLightbox);
+    }
+
+    if (lightboxOverlay) {
+        lightboxOverlay.addEventListener('click', closeLightbox);
+    }
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+</script>
+{% endblock %}
