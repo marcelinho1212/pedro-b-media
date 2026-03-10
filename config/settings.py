@@ -127,7 +127,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = "/var/data/media"
-os.makedirs(MEDIA_ROOT, exist_ok=True)
+
 
 # =========================
 # EMAIL
